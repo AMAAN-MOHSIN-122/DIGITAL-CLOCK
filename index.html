@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <title></title>
+</head>
+
+<body onload="initClock()">
+  <div class="datetime">
+    <div class="date">
+      <span id="dayname">DAY</span>
+      <span id="month">MONTH</span>
+      <span id="daynum">00</span>
+      <span id="year">YEAR</span>
+    </div>
+    <div class="time">
+      <span id="hour">00:</span>
+      <span id="minutes">00:</span>
+      <span id="seconds">00:</span>
+      <span id="period">AM</span>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var dname = now.getDay();
+      var mo = now.getMonth();
+      var da = now.getDate();
+      var yr = now.getFullYear();
+      var hr = addZero(now.getHours());
+      var min = addZero(now.getMinutes());
+      var sec = addZero(now.getSeconds());
+      var pe = "AM";
+
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var weeks = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+      var values = [weeks[dname], months[mo], da, yr, hr, min, sec, pe];
+
+      for (var i = 0; i < ids.length; i++) {
+        if (ids[i] === "hour" || ids[i] === "minutes" || ids[i] === "seconds") {
+          document.getElementById(ids[i]).textContent = values[i] + ":";
+        } else {
+          document.getElementById(ids[i]).textContent = values[i];
+        }
+      }
+    }
+
+    function addZero(num) {
+      return (num < 10 ? "0" : "") + num;
+    }
+
+    function initClock() {
+      updateClock();
+      window.setInterval(updateClock, 1000); // Update every second
+    }
+  </script>
+</body>
+
+</html>
